@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -10,10 +11,15 @@ class BotonesPage extends StatelessWidget {
         children: <Widget>[
           _fondoApp(),
           SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                _titulos(),
-              ],
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
+
+              child: Column(
+                children: <Widget>[
+                  _titulos(),
+                  _botonesRedondeados(),
+                ],
+              ),
             ),
           ),
         ],
@@ -130,6 +136,61 @@ class BotonesPage extends StatelessWidget {
             title: Container()
           ),
           
+        ],
+      ),
+    );
+  }
+
+  Widget _botonesRedondeados(){
+
+    return Table(
+      children: [
+        TableRow(
+          children: [
+            _crearBotonRedondeado(Colors.blue, Icons.border_all, 'General'),
+            _crearBotonRedondeado(Colors.purpleAccent, Icons.directions, 'Direcciones'),
+          ],
+        ),
+        TableRow(
+          children: [
+            _crearBotonRedondeado(Colors.redAccent, Icons.border_all, 'general'),
+            _crearBotonRedondeado(Colors.teal, Icons.border_all, 'general'),
+          ],
+        ),
+        TableRow(
+          children: [
+            _crearBotonRedondeado(Colors.orange, Icons.border_all, 'general'),
+            _crearBotonRedondeado(Colors.pink, Icons.border_all, 'general'),
+          ],
+        ),
+        TableRow(
+          children: [
+            _crearBotonRedondeado(Colors.cyanAccent, Icons.border_all, 'general'),
+            _crearBotonRedondeado(Colors.greenAccent, Icons.border_all, 'general'),
+          ],
+        ),
+      ],
+    );
+
+  }
+
+  Widget _crearBotonRedondeado(Color color, IconData icon, String texto){
+    return Container(
+      height: 180.0,
+      margin: EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(62, 66, 107, 0.7),
+        borderRadius: BorderRadius.circular(20.0)
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          CircleAvatar(
+            backgroundColor: color,
+            radius: 35.0,
+            child: Icon(icon, color: Colors.white, size: 30.0,),
+          ),
+          Text(texto, style: TextStyle(color: color),)
         ],
       ),
     );
